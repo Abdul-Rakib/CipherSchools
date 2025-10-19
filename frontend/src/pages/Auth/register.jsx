@@ -60,6 +60,21 @@ export default function Register() {
       if (response.data.success) {
         toast.success('Registration successful!')
         localStorage.setItem('isLoggedIn', 'true')
+        localStorage.setItem('token', response.data.data.token)
+
+        // Decode JWT to get user ID
+        try {
+          const base64Url = response.data.data.token.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          const decoded = JSON.parse(jsonPayload);
+          localStorage.setItem('userId', decoded._id);
+        } catch (e) {
+          console.error('Failed to decode token:', e);
+        }
+
         navigate('/')
       } else {
         toast.error(response.data.msg || 'Registration failed')
@@ -84,6 +99,21 @@ export default function Register() {
       if (data.success && data.data) {
         // Existing user - redirect to home
         localStorage.setItem('isLoggedIn', 'true')
+        localStorage.setItem('token', data.data.token)
+
+        // Decode JWT to get user ID
+        try {
+          const base64Url = data.data.token.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          const decoded = JSON.parse(jsonPayload);
+          localStorage.setItem('userId', decoded._id);
+        } catch (e) {
+          console.error('Failed to decode token:', e);
+        }
+
         navigate('/')
       } else if (data.success === false && data.msg === "New user detected.") {
         // New user - continue with registration

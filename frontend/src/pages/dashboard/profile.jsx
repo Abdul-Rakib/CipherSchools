@@ -99,7 +99,6 @@ export default function Profile() {
                 profile={profile}
                 onProfileUpdate={handleProfileUpdate}
               />
-              <AccountStats isMobile={true} />
             </div>
           </div>
 

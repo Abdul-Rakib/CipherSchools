@@ -35,10 +35,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     { label: 'Customer Support', icon: FaHeadset, to: '/support', visible: true },
     { label: 'Login', icon: FaSignInAlt, to: '/login', visible: !isLoggedIn },
     { label: 'Create Account', icon: FaUserPlus, to: '/register', visible: !isLoggedIn },
-    { label: 'Purchase History', icon: FaBook, to: '/orders', visible: isLoggedIn },
     { label: 'Dashboard', icon: FaChartLine, to: '/profile', visible: isLoggedIn },
     { label: 'Privacy Policy', icon: FaShieldAlt, to: '/privacypage', visible: true },
-    { label: 'Refund Policy', icon: FaReceipt, to: '/refund-policy', visible: true },
     {
       label: 'Sign Out', icon: FaSignOutAlt, onClick: () => {
         logout();
@@ -79,7 +77,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 </div>
                 <div>
                   <h2 className="text-gray-600 font-semibold">Welcome Dear,</h2>
-                  <p className="text-gray-600 text-xs">PrintLabs User</p>
+                  <p className="text-gray-600 text-xs">Developer</p>
                 </div>
               </Link>
             )}

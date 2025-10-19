@@ -7,15 +7,17 @@ import {
   FaTwitter,
   FaWhatsapp,
   FaEnvelope,
-  FaPhone
+  FaPhone,
+  FaGithub
 } from 'react-icons/fa';
+import { FiCode } from 'react-icons/fi';
 
 const SocialLink = ({ href, icon: Icon }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="text-gray-600 hover:text-[#229799] transition-colors"
+    className="text-gray-400 hover:text-blue-400 transition-colors"
   >
     <Icon className="w-6 h-6" />
   </a>
@@ -23,58 +25,57 @@ const SocialLink = ({ href, icon: Icon }) => (
 
 const Footer = () => {
   const socialLinks = [
-    { icon: FaInstagram, href: 'https://www.instagram.com/coursemate.ai' },
-    { icon: FaYoutube, href: 'https://www.youtube.com/@coursemate' },
-    { icon: FaTwitter, href: 'https://twitter.com/coursemate_ai' },
+    { icon: FaGithub, href: 'https://github.com' },
+    { icon: FaTwitter, href: 'https://twitter.com' },
+    { icon: FaYoutube, href: 'https://youtube.com' },
   ];
 
   const quickLinks = [
     { text: 'Login', path: '/login' },
     { text: 'Register', path: '/register' },
-    { text: 'Contact', path: '/contact' }
+    { text: 'Dashboard', path: '/dashboard' }
   ];
 
-  const importantPages = [
+  const resources = [
+    { text: 'Documentation', path: '/docs' },
+    { text: 'Tutorials', path: '/tutorials' },
+    { text: 'API Reference', path: '/api' }
+  ];
+
+  const legal = [
     { text: 'Privacy Policy', path: '/privacy-policy' },
     { text: 'Terms & Conditions', path: '/terms-and-condition' },
-    { text: 'Refund Policy', path: '/refund-policy' }
-  ];
-
-  const paymentMethods = [
-    { text: 'Paytm', imgPath: '/payments/paytm.png' },
-    { text: 'PhonePe', imgPath: '/payments/phonepe.png' },
-    { text: 'Google Pay', imgPath: '/payments/gpay.png' },
-    { text: 'UPI', imgPath: '/payments/upi.png' },
+    { text: 'License', path: '/license' }
   ];
 
   return (
-    <footer className="bg-gray-50 py-10 px-4">
-      <div className="max-w-screen-xl mx-auto">
-        <div className="flex flex-wrap justify-between">
+    <footer className="bg-gradient-to-b from-black to-gray-900 border-t border-gray-800 py-12 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
-          <div className="w-full md:w-1/3 mb-6">
-            <div className="font-bold text-2xl mb-4">
-              Course<span className="text-[#229799]">Mate</span>
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <FiCode size={24} className="text-blue-400" />
+              <span className="text-xl font-bold text-white">React IDE</span>
             </div>
-            <p className="text-sm mb-4 text-gray-600">
-              Transform your lectures, meetings, and podcasts into structured notes.
-              AI-powered transcription and summarization made simple.
+            <p className="text-sm mb-4 text-gray-400 leading-relaxed">
+              Build React applications directly in your browser. Professional IDE with live preview, Monaco editor, and instant setup.
             </p>
-            <p className="mb-4 text-sm flex items-center gap-2 text-gray-600">
-              <FaPhone />
-              +91 98830 84820 | Punjab, India
-            </p>
-            <p className="mb-4 text-sm flex items-center gap-2 text-gray-600">
-              <FaEnvelope />
-              support@coursemate.ai
-            </p>
+            <div className="flex items-center gap-2 text-sm text-gray-400 mb-2">
+              <FaEnvelope className="text-blue-400" />
+              support@reactide.dev
+            </div>
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <FaPhone className="text-blue-400" />
+              Available 24/7
+            </div>
           </div>
 
           {/* Links Section */}
-          <div className="w-full md:w-1/3 flex justify-around mb-6">
+          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Quick Links */}
-            <div className="w-1/2 pr-4">
-              <h6 className="font-bold text-sm text-gray-700 mb-3 border-b border-gray-200 pb-2">
+            <div>
+              <h6 className="font-bold text-sm text-white mb-4 uppercase tracking-wider">
                 Quick Links
               </h6>
               <ul className="space-y-2">
@@ -82,7 +83,7 @@ const Footer = () => {
                   <li key={index}>
                     <Link
                       to={link.path}
-                      className="text-gray-600 hover:text-[#229799] transition-colors"
+                      className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                     >
                       {link.text}
                     </Link>
@@ -91,17 +92,36 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Important Pages */}
-            <div className="w-1/2">
-              <h6 className="font-bold text-sm text-gray-700 mb-3 border-b border-gray-200 pb-2">
-                Important Pages
+            {/* Resources */}
+            <div>
+              <h6 className="font-bold text-sm text-white mb-4 uppercase tracking-wider">
+                Resources
               </h6>
               <ul className="space-y-2">
-                {importantPages.map((link, index) => (
+                {resources.map((link, index) => (
                   <li key={index}>
                     <Link
                       to={link.path}
-                      className="text-gray-600 hover:text-[#229799] transition-colors"
+                      className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h6 className="font-bold text-sm text-white mb-4 uppercase tracking-wider">
+                Legal
+              </h6>
+              <ul className="space-y-2">
+                {legal.map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      to={link.path}
+                      className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                     >
                       {link.text}
                     </Link>
@@ -110,49 +130,30 @@ const Footer = () => {
               </ul>
             </div>
           </div>
+        </div>
 
-          {/* Social and Payment Section */}
-          <div className="w-full md:w-1/4">
-            {/* Social Media */}
-            <div className="mb-6 hidden md:block">
-              <h6 className="font-bold text-sm text-gray-700 mb-3 border-b border-gray-200 pb-2">
-                Connect With Us
-              </h6>
+        {/* Social Media Section */}
+        <div className="border-t border-gray-800 pt-8 mt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-center md:text-left">
+              <p className="text-sm text-gray-400">
+                © {new Date().getFullYear()} React IDE. All rights reserved.
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                Built with ❤️ for developers
+              </p>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-400 mr-2">Follow us:</span>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <SocialLink key={index} {...social} />
                 ))}
               </div>
             </div>
-
-            {/* Payment Methods */}
-            <div>
-              <h6 className="font-bold text-sm text-gray-700 mb-3 border-b border-gray-200 pb-2">
-                Payment Methods
-              </h6>
-              <div className="grid grid-cols-5 gap-3">
-                {paymentMethods.map((method, index) => (
-                  <img
-                    key={index}
-                    src={method.imgPath}
-                    alt={method.text}
-                    className="w-12 h-12 object-contain"
-                  />
-                ))}
-              </div>
-            </div>
           </div>
-        </div>
-
-        {/* Copyright */}
-        <hr className="my-6" />
-        <div className="text-center text-sm pb-8 md:pb-0">
-          <small>
-            All Rights Reserved © {new Date().getFullYear()} |
-            <Link to="/" className="text-[#229799] hover:text-[#229799] ml-1">
-              CourseMate
-            </Link>
-          </small>
         </div>
       </div>
     </footer>

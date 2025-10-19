@@ -155,9 +155,6 @@ export default function DesktopProfileForm({ profile, onProfileUpdate }) {
             )}
           </div>
         </div>
-
-        {/* Account Stats */}
-        <AccountStats isMobile={false} />
       </form>
     </div>
   );

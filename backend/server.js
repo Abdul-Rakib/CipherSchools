@@ -11,8 +11,9 @@ import mongoose from "mongoose";
 
 import authRoutes from "./routes/auth.js";
 import s3Routes from "./routes/s3.js";
-import adminRoutes from "./routes/admin.js";
 import userRoutes from "./routes/user.js";
+import projectRoutes from "./routes/project.js";
+import fileRoutes from "./routes/file.js";
 
 dotenv.config();
 
@@ -102,8 +103,9 @@ if (process.env.NODE_ENV === "development") {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/s3", s3Routes);
-app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/files", fileRoutes);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

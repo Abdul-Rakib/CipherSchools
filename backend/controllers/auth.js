@@ -271,3 +271,54 @@ export const logout = (req, res) => {
     });
     res.status(200).json({ success: true, msg: "Logged out successfully" });
 };
+
+export const testLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Validate test credentials
+        if (email !== 'test@gmail.com' || password !== '123456') {
+            return res.status(401).json({
+                success: false,
+                msg: 'Invalid test credentials. Use test@gmail.com / 123456'
+            });
+        }
+
+        // Find the main test account (firefalls2004@gmail.com)
+        const testUser = await User.findOne({ email: 'firefalls2004@gmail.com' });
+
+        if (!testUser) {
+            return res.status(404).json({
+                success: false,
+                msg: 'Test account not found. Please contact administrator.'
+            });
+        }
+
+        // Generate JWT token for the test user
+        const token = generateJwtToken(testUser);
+
+        // Set cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+            maxAge: 6 * 60 * 60 * 1000, // 6 hours
+        });
+
+        // Update last session without triggering validation
+        await User.updateOne(
+            { _id: testUser._id },
+            { $set: { lastSession: new Date() } }
+        );
+
+        return res.status(200).json({
+            success: true,
+            msg: "Test login successful",
+            data: { token }
+        });
+
+    } catch (err) {
+        console.error("Error in test login:", err);
+        res.status(500).json({ success: false, msg: "Internal server error" });
+    }
+};

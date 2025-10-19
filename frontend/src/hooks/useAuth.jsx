@@ -29,8 +29,23 @@ export const useAuth = () => {
 
             if (data.success && data.data) {
                 localStorage.setItem('isLoggedIn', 'true')
+                localStorage.setItem('token', data.data.token)
+
+                // Decode JWT to get user ID
+                try {
+                    const base64Url = data.data.token.split('.')[1];
+                    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                    const decoded = JSON.parse(jsonPayload);
+                    localStorage.setItem('userId', decoded._id);
+                } catch (e) {
+                    console.error('Failed to decode token:', e);
+                }
+
                 setIsLoggedIn(true);
-                navigate('/')
+                navigate('/dashboard')
                 return true
             } else if (data.success === false && data.msg === "New user detected.") {
                 // This is a new user case
