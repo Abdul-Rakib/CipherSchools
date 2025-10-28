@@ -17,6 +17,10 @@ Password: 123456
 
 ---
 
+## Demo Video
+
+[![React IDE Demo](https://img.youtube.com/vi/KeSIfLwuJ_w/0.jpg)](https://www.youtube.com/watch?v=KeSIfLwuJ_w)
+
 ## Screenshots
 
 ### Dashboard
