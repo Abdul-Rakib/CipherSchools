@@ -4,7 +4,7 @@ import { IDEContext } from '../../context/ideContext';
 import FileExplorer from '../../components/ide/FileExplorer';
 import CodeEditor from '../../components/ide/CodeEditor';
 import Preview from '../../components/ide/Preview';
-import { FiArrowLeft, FiMoon, FiSun, FiSave, FiCode } from 'react-icons/fi';
+import { FiArrowLeft, FiMoon, FiSun, FiSave, FiCode, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
 const IDE = () => {
@@ -22,6 +22,8 @@ const IDE = () => {
     const [previewWidth, setPreviewWidth] = useState(500); // in pixels
     const [isDraggingExplorer, setIsDraggingExplorer] = useState(false);
     const [isDraggingPreview, setIsDraggingPreview] = useState(false);
+    const [isExplorerMinimized, setIsExplorerMinimized] = useState(false);
+    const [explorerWidthBeforeMinimize, setExplorerWidthBeforeMinimize] = useState(256);
 
     // Use refs to track dragging state
     const isDraggingExplorerRef = useRef(false);
@@ -91,6 +93,19 @@ const IDE = () => {
         }
 
         return pathParts.join('/');
+    };
+
+    const toggleExplorerMinimize = () => {
+        if (isExplorerMinimized) {
+            // Maximize
+            setExplorerWidth(explorerWidthBeforeMinimize);
+            setIsExplorerMinimized(false);
+        } else {
+            // Minimize
+            setExplorerWidthBeforeMinimize(explorerWidth);
+            setExplorerWidth(0);
+            setIsExplorerMinimized(true);
+        }
     };
 
     const handleRenameProject = async () => {
@@ -323,23 +338,39 @@ const IDE = () => {
 
                 {/* File Explorer */}
                 <div
-                    className="overflow-hidden flex-shrink-0"
+                    className="overflow-hidden flex-shrink-0 flex flex-col relative"
                     style={{ width: `${explorerWidth}px` }}
                 >
-                    <FileExplorer />
+                    <FileExplorer onMinimize={toggleExplorerMinimize} isMinimized={isExplorerMinimized} />
                 </div>
 
-                {/* Resizer for Explorer */}
-                <div
-                    onMouseDown={handleExplorerMouseDown}
-                    className={`w-1 cursor-col-resize flex-shrink-0 transition-colors relative z-10 ${isDraggingExplorer
-                        ? 'bg-[#007acc]'
-                        : theme === 'dark'
-                            ? 'bg-[#3e3e42] hover:bg-[#007acc]'
-                            : 'bg-gray-300 hover:bg-blue-400'
-                        }`}
-                    style={{ cursor: 'col-resize' }}
-                />
+                {/* Collapsed Explorer Toggle - visible when minimized */}
+                {isExplorerMinimized && (
+                    <button
+                        onClick={toggleExplorerMinimize}
+                        className={`w-10 flex-shrink-0 flex items-center justify-center transition-colors ${theme === 'dark'
+                            ? 'bg-gray-800/50 hover:bg-gray-700 border-r border-gray-700'
+                            : 'bg-gray-100 hover:bg-gray-200 border-r border-gray-300'
+                            }`}
+                        title="Expand explorer"
+                    >
+                        <FiChevronRight size={18} className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} />
+                    </button>
+                )}
+
+                {/* Resizer for Explorer - hidden when minimized */}
+                {!isExplorerMinimized && (
+                    <div
+                        onMouseDown={handleExplorerMouseDown}
+                        className={`w-1 cursor-col-resize flex-shrink-0 transition-colors relative z-10 ${isDraggingExplorer
+                            ? 'bg-[#007acc]'
+                            : theme === 'dark'
+                                ? 'bg-[#3e3e42] hover:bg-[#007acc]'
+                                : 'bg-gray-300 hover:bg-blue-400'
+                            }`}
+                        style={{ cursor: 'col-resize' }}
+                    />
+                )}
 
                 {/* Code Editor */}
                 <div className="flex-1 overflow-hidden min-w-0">

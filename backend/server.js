@@ -61,25 +61,47 @@ app.use(
     helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"],
+
             scriptSrc: [
                 "'self'",
+                "'unsafe-inline'", // needed for Monaco + Sandpack dynamic scripts
+                "'unsafe-eval'",   // needed for Monaco
                 "https://accounts.google.com",
-                "https://www.gstatic.com"
+                "https://www.gstatic.com",
+                "https://cdn.jsdelivr.net",
+                "https://unpkg.com"
             ],
+
             connectSrc: [
                 "'self'",
-                "https://printlabs-bucket.s3.ap-south-1.amazonaws.com"
+                "https://printlabs-bucket.s3.ap-south-1.amazonaws.com",
+                "https://*.codesandbox.io",
+                "https://cdn.jsdelivr.net",
+                "https://unpkg.com"
             ],
+
             imgSrc: [
                 "'self'",
                 "data:",
-                "https://printlabs-bucket.s3.ap-south-1.amazonaws.com"
+                "https://printlabs-bucket.s3.ap-south-1.amazonaws.com",
+                "https://cdn.jsdelivr.net",
+                "https://unpkg.com"
             ],
-            styleSrc: ["'self'", "'unsafe-inline'"],
+
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://cdn.jsdelivr.net",
+                "https://unpkg.com"
+            ],
+
             frameSrc: [
                 "'self'",
-                "https://accounts.google.com"
+                "https://accounts.google.com",
+                "https://*.codesandbox.io"
             ],
+
+            fontSrc: ["'self'", "https://cdn.jsdelivr.net", "https://unpkg.com"],
         },
     })
 );

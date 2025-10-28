@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { IDEContext } from '../../context/ideContext';
-import { FiChevronDown, FiChevronRight, FiFile, FiFolder, FiPlus, FiTrash2, FiEdit2, FiX, FiCheck } from 'react-icons/fi';
+import { FiChevronDown, FiChevronRight, FiFile, FiFolder, FiPlus, FiTrash2, FiEdit2, FiX, FiCheck, FiChevronLeft } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-const FileExplorer = () => {
+const FileExplorer = ({ onMinimize, isMinimized }) => {
     const { files, currentFile, setCurrentFile, createFile, deleteFile, renameFile, currentProject, theme } =
         useContext(IDEContext);
     const [expandedFolders, setExpandedFolders] = useState(new Set());
@@ -229,17 +229,17 @@ const FileExplorer = () => {
 
     return (
         <div className={`h-full flex flex-col border-r ${theme === 'dark'
-                ? 'bg-gray-900 border-gray-800'
-                : 'bg-gray-50 border-gray-300'
+            ? 'bg-gray-900 border-gray-800'
+            : 'bg-gray-50 border-gray-300'
             }`}>
             {/* Header */}
-            <div className={`px-3 py-3 border-b ${theme === 'dark' ? 'border-gray-800' : 'border-gray-300'
+            <div className={`px-3 py-3 border-b flex items-center justify-between ${theme === 'dark' ? 'border-gray-800' : 'border-gray-300'
                 }`}>
-                <div className="flex items-center justify-between">
-                    <h3 className={`text-xs font-semibold uppercase tracking-wide ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                        }`}>
-                        Explorer
-                    </h3>
+                <h3 className={`text-xs font-semibold uppercase tracking-wide ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                    Explorer
+                </h3>
+                <div className="flex items-center gap-1">
                     <button
                         onClick={() => {
                             setCreatingInParentId(null);
@@ -254,6 +254,18 @@ const FileExplorer = () => {
                     >
                         <FiPlus size={14} />
                     </button>
+                    {onMinimize && !isMinimized && (
+                        <button
+                            onClick={onMinimize}
+                            className={`p-1.5 rounded transition-colors ${theme === 'dark'
+                                ? 'hover:bg-[#2d2d30] text-[#858585] hover:text-[#cccccc]'
+                                : 'hover:bg-gray-200 text-gray-600 hover:text-gray-900'
+                                }`}
+                            title="Minimize explorer"
+                        >
+                            <FiChevronLeft size={14} />
+                        </button>
+                    )}
                 </div>
             </div>
 

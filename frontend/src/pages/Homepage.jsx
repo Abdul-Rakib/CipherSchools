@@ -32,8 +32,7 @@ export default function Homepage() {
                 </h1>
 
                 <p className="text-xl text-gray-300 leading-relaxed">
-                  A professional, browser-based IDE for React development.
-                  Write code, see instant previews, and build amazing apps—all without any setup.
+                  No setup, no hassle - just write, run, and see your code in action with CourseMate React IDE
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-4">
@@ -152,25 +151,25 @@ export default function Homepage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
                 <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-                  10K+
+                  100+
                 </div>
                 <div className="text-gray-400">Projects Created</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-                  5K+
+                  50+
                 </div>
                 <div className="text-gray-400">Active Developers</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent mb-2">
-                  1M+
+                  100k+
                 </div>
                 <div className="text-gray-400">Lines of Code</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-2">
-                  100K+
+                  100+
                 </div>
                 <div className="text-gray-400">Hours Saved</div>
               </div>
